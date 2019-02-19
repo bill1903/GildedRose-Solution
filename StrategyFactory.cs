@@ -3,43 +3,27 @@
 namespace csharp
 {
     using Strategy = Action<Item>;
-
     /// <summary>
     /// Here you can find some generic strategies and strategy constructors
     /// </summary>
     class StrategyFactory
     {
         /// <summary>
-        /// The item's quality degrades with double the degradation rate after it expires
+        /// The item's quality changes twice as fast after its sell in date
         /// </summary>
-        /// <param name="degradationRate"></param>
+        /// <param name="qualityChangeRate"></param>
         /// <returns></returns>
-        public static Strategy CreateDegradableStrategy(int degradationRate)
+        public static Strategy CreateProgressiveQualityChangeStrategy(int qualityChangeRate)
         {
             return (item) => {
                 UpdateItemExpiration(item);
                 if (item.SellIn < 0)
-                    item.Quality -= 2 * degradationRate;
+                    item.Quality += 2 * qualityChangeRate;
                 else
-                    item.Quality -= degradationRate;
+                    item.Quality += qualityChangeRate;
                 ClampItemQuality(item);
             };
         }
-
-        /// <summary>
-        /// The item's quality increases as time passes.
-        /// </summary>
-        public static readonly Strategy CollectibleStrategy = (item) =>
-        {
-            UpdateItemExpiration(item);
-
-            if (item.SellIn < 0)
-                item.Quality += 2;
-            else
-                item.Quality++;
-
-            ClampItemQuality(item);
-        };
 
         public static readonly Strategy EventPassStrategy = (item) =>
         {

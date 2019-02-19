@@ -12,11 +12,11 @@ namespace csharp
             this.Items = Items;
 
             updateContext = new UpdateContext();
-            updateContext.SetDefaultStrategy(StrategyFactory.CreateDegradableStrategy(1));
+            updateContext.SetDefaultStrategy(StrategyFactory.CreateProgressiveQualityChangeStrategy(-1));
             updateContext.SetStrategyForItemsWithTag("Sulfuras", null);
-            updateContext.SetStrategyForItemsWithTag("Aged Brie", StrategyFactory.CollectibleStrategy);
+            updateContext.SetStrategyForItemsWithTag("Aged Brie", StrategyFactory.CreateProgressiveQualityChangeStrategy(1));
             updateContext.SetStrategyForItemsWithTag("Backstage Passes", StrategyFactory.EventPassStrategy);
-            updateContext.SetStrategyForItemsWithTag("Conjured", StrategyFactory.CreateDegradableStrategy(2));
+            updateContext.SetStrategyForItemsWithTag("Conjured", StrategyFactory.CreateProgressiveQualityChangeStrategy(-2));
         }
 
 
