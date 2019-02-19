@@ -21,17 +21,6 @@ namespace csharp
             GetMatchingPolicy(item)?.Invoke(item);
         }
 
-        readonly Dictionary<Item, Policy> ItemsToPolicies = new Dictionary<Item, Policy>();
-        /// <summary>
-        /// Sets the update policy for this specific item
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="policy"></param>
-        public void SetPolicyForItem(Item item, Policy policy)
-        {
-            ItemsToPolicies[item] = policy;
-        }
-
         readonly Dictionary<string, Policy> TagsToPolicies = new Dictionary<string, Policy>();
         /// <summary>
         /// Sets the update policy for all the items that contain this specific string in their name
@@ -64,19 +53,15 @@ namespace csharp
             defaultPolicy = policy;
         }
 
-        /// <summary>
-        /// This function could be easily absorbed by ApplyUpdatePolicy
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        
+        /* This function could be absorbed by ApplyUpdatePolicy, but since it helps
+         * us check an item's policy directly and more importantly reduces the
+         * overall amount of code I chose to keep it as is
+         */
         Policy GetMatchingPolicy(Item item)
         {
-            //try to find policy for this specific item
-            if (ItemsToPolicies.ContainsKey(item))
-                return ItemsToPolicies[item];
-
             string itemName = item.Name.ToLowerInvariant();
-            //try to find policy for the item's name
+            //try to find policy for the item's full name
             if (NamesToPolicies.ContainsKey(itemName))
                 return NamesToPolicies[itemName];
             //try to find a policy for a specific part of the name
@@ -86,7 +71,6 @@ namespace csharp
 
             //return the default policy, if any
             return defaultPolicy;
-
         }
 
 

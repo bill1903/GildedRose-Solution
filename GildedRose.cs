@@ -12,12 +12,11 @@ namespace csharp
             this.Items = Items;
 
             updateProtocol = new UpdateProtocol();
-            
-            updateProtocol.SetDefaultPolicy(GlobalPolicies.DegradableItemPolicy(1));
-            updateProtocol.SetPolicyForItemsWithTag("Sulfuras", GlobalPolicies.LegendaryPolicy);
-            updateProtocol.SetPolicyForItemsWithTag("Aged Brie", GlobalPolicies.CollectiblePolicy);
-            updateProtocol.SetPolicyForItemsWithTag("Backstage Passes", GlobalPolicies.EventPassPolicy);
-            updateProtocol.SetPolicyForItemsWithTag("Conjured", GlobalPolicies.DegradableItemPolicy(2));
+            updateProtocol.SetDefaultPolicy(PolicyFactory.CreateDegradablePolicy(1));
+            updateProtocol.SetPolicyForItemsWithTag("Sulfuras", PolicyFactory.LegendaryPolicy);
+            updateProtocol.SetPolicyForItemsWithTag("Aged Brie", PolicyFactory.CollectiblePolicy);
+            updateProtocol.SetPolicyForItemsWithTag("Backstage Passes", PolicyFactory.EventPassPolicy);
+            updateProtocol.SetPolicyForItemsWithTag("Conjured", PolicyFactory.CreateDegradablePolicy(2));
         }
 
 
