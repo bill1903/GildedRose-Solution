@@ -58,7 +58,7 @@ namespace csharp
             int[] qualityProgression =
                 {16, 14, 12, 8, 4, 0, 0};
 
-            TestQualityProgression("Conjured Mana Cake", 3, 18, qualityProgression);
+            TestQualityProgression("Conjured Sword", 3, 18, qualityProgression);
 
         }
 
